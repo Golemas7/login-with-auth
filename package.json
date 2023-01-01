@@ -2,7 +2,7 @@
 	"name": "login-with-auth",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --port 3000",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "playwright test",
