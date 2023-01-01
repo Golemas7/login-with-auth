@@ -14,6 +14,9 @@
 		<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
 			<a href="/about">About</a>
 		</li>
+		<li aria-current={$page.url.pathname === '/tasks-list' ? 'page' : undefined}>
+			<a href="/tasks-list">Tasks List</a>
+		</li>
 		<li>
 			<LoginButton class="login-button" />
 		</li>
@@ -21,6 +24,19 @@
 	<svg viewBox="0 0 2 3" aria-hidden="true">
 		<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
 	</svg>
+
+	<a class="navbar-brand" href="/#">Task Manager</a>
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarText"
+		aria-controls="navbarText"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		<span class="navbar-toggler-icon" />
+	</button>
 </nav>
 
 <style>
