@@ -2,6 +2,23 @@
 	import Counter from './Counter.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+
+	import auth, { getIsAuthenticated } from 'sveltekit-auth0';
+	import { onMount } from 'svelte';
+
+	let isAuthenticated = false;
+
+	function login() {
+		auth.loginWithPopup();
+	}
+
+	onMount(() => {
+		const isAuthenticated$ = getIsAuthenticated();
+
+		isAuthenticated$.subscribe((value) => {
+			isAuthenticated = value;
+		});
+	});
 </script>
 
 <svelte:head>
@@ -10,22 +27,33 @@
 </svelte:head>
 
 <section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+	{#if !isAuthenticated}
+		<span
+			>To use this app you need to <a
+				class="btn btn-primary btn-lg mr-auto ml-auto"
+				href="/"
+				role="button"
+				on:click={login}>Log In</a
+			></span
+		>
+	{:else}
+		<h1>
+			<span class="welcome">
+				<picture>
+					<source srcset={welcome} type="image/webp" />
+					<img src={welcome_fallback} alt="Welcome" />
+				</picture>
+			</span>
 
-		to your new<br />SvelteKit app
-	</h1>
+			to your new<br />SvelteKit app
+		</h1>
 
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
+		<h2>
+			try editing <strong>src/routes/+page.svelte</strong>
+		</h2>
 
-	<Counter />
+		<Counter />
+	{/if}
 </section>
 
 <style>

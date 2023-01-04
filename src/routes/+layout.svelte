@@ -2,28 +2,11 @@
 	import Header from './Header.svelte';
 	import './styles.css';
 	import { onMount } from 'svelte';
-	import authService from '../auth-service.js';
 
-	import { isAuthenticated, user, user_tasks, tasks } from '../store.js';
-
-	const authenticationGuard = (ctx, next) => {
-		if ($isAuthenticated) {
-			next();
-		} else {
-			authService.loginWithPopup({ appState: { targetUrl: ctx.pathname } });
-		}
-	};
-
-	const onRedirectCallback = (appState) => {
-		window.history.replaceState(
-			{},
-			document.title,
-			appState && appState.targetUrl ? appState.targetUrl : window.location.pathname
-		);
-	};
+	import auth from 'sveltekit-auth0';
 
 	onMount(async () => {
-		await authService.initializeAuth0({ onRedirectCallback });
+		await auth.initializeAuth0();
 	});
 </script>
 

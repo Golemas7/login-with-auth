@@ -15,7 +15,7 @@
 	<NavBar />
 
 	<div class="corner">
-		<a href="https://github.com/sveltejs/kit">
+		<a href="https://github.com/Golemas7/login-with-auth">
 			<img src={github} alt="GitHub" />
 		</a>
 	</div>

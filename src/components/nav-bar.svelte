@@ -1,6 +1,26 @@
 <script>
 	import { page } from '$app/stores';
-	import LoginButton from '../components/login-button.svelte';
+
+	import auth, { getIsAuthenticated } from 'sveltekit-auth0';
+	import { onMount } from 'svelte';
+
+	let isAuthenticated = false;
+
+	async function login() {
+		await auth.loginWithPopup();
+	}
+
+	function logout() {
+		auth.logout();
+	}
+
+	onMount(() => {
+		const isAuthenticated$ = getIsAuthenticated();
+
+		isAuthenticated$.subscribe((value) => {
+			isAuthenticated = value;
+		});
+	});
 </script>
 
 <nav>
@@ -11,32 +31,23 @@
 		<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
 			<a href="/">Home</a>
 		</li>
-		<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-			<a href="/about">About</a>
-		</li>
-		<li aria-current={$page.url.pathname === '/tasks-list' ? 'page' : undefined}>
-			<a href="/tasks-list">Tasks List</a>
-		</li>
-		<li>
-			<LoginButton class="login-button" />
-		</li>
+		{#if !isAuthenticated}
+			<li>
+				<a class="btn btn-primary btn-lg mr-auto ml-auto" href="/" role="button" on:click={login}
+					>Log In</a
+				>
+			</li>
+		{:else}
+			<li>
+				<a class="btn btn-primary btn-lg mr-auto ml-auto" href="/" role="button" on:click={logout}
+					>Log Out</a
+				>
+			</li>
+		{/if}
 	</ul>
 	<svg viewBox="0 0 2 3" aria-hidden="true">
 		<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
 	</svg>
-
-	<a class="navbar-brand" href="/#">Task Manager</a>
-	<button
-		class="navbar-toggler"
-		type="button"
-		data-toggle="collapse"
-		data-target="#navbarText"
-		aria-controls="navbarText"
-		aria-expanded="false"
-		aria-label="Toggle navigation"
-	>
-		<span class="navbar-toggler-icon" />
-	</button>
 </nav>
 
 <style>
