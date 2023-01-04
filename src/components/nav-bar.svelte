@@ -2,9 +2,10 @@
 	import { page } from '$app/stores';
 
 	import auth, { getIsAuthenticated } from 'sveltekit-auth0';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	let isAuthenticated = false;
+	let subscription;
 
 	async function login() {
 		await auth.loginWithPopup();
@@ -17,9 +18,13 @@
 	onMount(() => {
 		const isAuthenticated$ = getIsAuthenticated();
 
-		isAuthenticated$.subscribe((value) => {
+		subscription = isAuthenticated$.subscribe((value) => {
 			isAuthenticated = value;
 		});
+	});
+
+	onDestroy(() => {
+		subscription?.unsubscribe();
 	});
 </script>
 
