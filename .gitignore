@@ -9,5 +9,6 @@ node_modules
 .vercel
 .output
 .idea
+.netlify
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
