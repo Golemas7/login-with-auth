@@ -4,6 +4,8 @@
 	import auth, { getIsAuthenticated } from 'sveltekit-auth0';
 	import { onDestroy, onMount } from 'svelte';
 
+	const testLink = import.meta.env['PUBLIC_VITE_AUTH0_DOMAIN'];
+
 	let isAuthenticated = false;
 	let subscription;
 
@@ -21,6 +23,8 @@
 		subscription = isAuthenticated$.subscribe((value) => {
 			isAuthenticated = value;
 		});
+
+		console.log('testLink', testLink);
 	});
 
 	onDestroy(() => {

@@ -1,5 +1,8 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
+import { loadEnv } from 'vite';
+
+process.env = { ...process.env, ...loadEnv('localhost', process.cwd()) };
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
