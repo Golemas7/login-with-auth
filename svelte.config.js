@@ -1,5 +1,5 @@
-import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
+import adapter from '@sveltejs/adapter-netlify';
 import { loadEnv } from 'vite';
 
 process.env = { ...process.env, ...loadEnv('localhost', process.cwd()) };
