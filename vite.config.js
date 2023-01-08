@@ -9,10 +9,4 @@ const config = {
 	}
 };
 
-export default ({ mode }) => {
-	// process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
-
-	return {
-		...config
-	};
-};
+export default config;
