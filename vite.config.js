@@ -1,5 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { loadEnv } from 'vite';
+// import { loadEnv } from 'vite';
 
 /** @type {import('vite').UserConfig} */
 const config = {
@@ -10,7 +10,7 @@ const config = {
 };
 
 export default ({ mode }) => {
-	process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+	// process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
 	return {
 		...config
